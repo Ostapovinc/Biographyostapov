@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Краткая биография</title>
+  <style>
+    /* Базовые сбросы */
+    :root{
+      --bg:#0b0b0b;
+      --glass:#0f0f0f;
+      --neon-red: #ff1a1a;
+      --neon-glow: rgba(255, 26, 26, 0.25);
+      --text:#eaeaea;
+      --accent: #ff2b2b;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #080808);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:760px;
+      text-align:center;
+      background: rgba(12,12,12,0.6);
+      border-radius:16px;
+      padding:48px 32px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 120px rgba(0,0,0,0.5) inset;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Аватар */
+    .avatar-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:-70px; /* если захотите вывести ещё выше */
+      margin-bottom:18px;
+    }
+    .avatar{
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      padding:6px; /* пространство для неоновой обводки */
+      background: radial-gradient(circle at 30% 20%, rgba(255,27,27,0.16), transparent 25%);
+      box-shadow:
+        0 0 30px 4px rgba(255,26,26,0.12),
+        0 0 12px 2px rgba(255,26,26,0.08),
+        0 8px 30px rgba(0,0,0,0.6);
+      display:inline-block;
+      position:relative;
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:50%;
+      display:block;
+      border:4px solid rgba(0,0,0,0.45);
+      box-shadow: 0 0 18px rgba(255,20,20,0.12);
+      position:relative;
+      z-index:2;
+    }
+    /* Неоновая обводка (внешний круг) */
+    .avatar:before{
+      content:"";
+      position:absolute;
+      inset: -6px;
+      border-radius:50%;
+      z-index:1;
+      background: transparent;
+      box-shadow: 0 0 18px 6px rgba(255, 20, 20, 0.06), 0 0 40px 10px rgba(255,18,18,0.12);
+      border: 2px solid rgba(255,50,50,0.12);
+      /* имитация яркого неона по краю */
+    }
+    /* тонкая яркая линия по контуру (послойно) */
+    .avatar:after{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      border-radius:50%;
+      z-index:3;
+      pointer-events:none;
+      box-shadow: 0 0 28px rgba(255,30,30,0.5);
+      mix-blend-mode: screen;
+    }
+
+    /* Заголовок */
+    h1{
+      margin: 6px 0 14px 0;
+      font-size:28px;
+      color:var(--accent);
+      letter-spacing:0.6px;
+      text-shadow:
+        0 0 8px rgba(255,40,40,0.9),
+        0 0 28px rgba(255,20,20,0.45);
+      font-weight:700;
+    }
+
+    /* Биография */
+    .bio{
+      margin: 12px 0 22px 0;
+      font-size:16.5px;
+      line-height:1.6;
+      color: #ffdede;
+      max-width:680px;
+      margin-left:auto;
+      margin-right:auto;
+      padding:18px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,10,10,0.02), rgba(0,0,0,0.02));
+      box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+      text-shadow: 0 0 10px rgba(255,20,20,0.06);
+    }
+    .bio .neon{
+      display:inline-block;
+      color:var(--neon-red);
+      font-weight:600;
+      text-shadow:
+        0 0 6px rgba(255,40,40,0.9),
+        0 0 18px rgba(255,20,20,0.6),
+        0 6px 18px rgba(0,0,0,0.6);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size:17px;
+    }
+
+    /* Кнопка */
+    .btn{
+      display:inline-block;
+      margin-top:8px;
+      padding:12px 20px;
+      border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,32,32,0.14), rgba(255,16,16,0.06));
+      color: #fff;
+      font-weight:700;
+      text-decoration:none;
+      box-shadow:
+        0 6px 30px rgba(0,0,0,0.6),
+        0 0 18px rgba(255,24,24,0.18);
+      border: 1px solid rgba(255,16,16,0.18);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:hover{
+      transform: translateY(-3px);
+      box-shadow:
+        0 18px 50px rgba(255,8,8,0.12),
+        0 0 30px rgba(255,20,20,0.22);
+    }
+
+    /* Адаптив */
+    @media (max-width:520px){
+      .card{ padding:28px 18px; }
+      .avatar{ width:128px; height:128px; }
+      h1{ font-size:22px; }
+      .bio{ font-size:15px; padding:14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <!-- Замените avatar.jpg на имя вашего файла -->
+          <img src="avatar.jpg" alt="Аватар">
+        </div>
+      </div>
+
+      <h1>Краткая биография</h1>
+
+      <div class="bio">
+        <div class="neon">
+          Остапов - бывший Дмитрий Левитов (лику оставил), пришел в данную сферу в 2019 году в вк паблики, в 22 году перешёл в дс комьюнити, в начале 23 года, перешел в камьюнити telegram'a, начал развивать свои умения в сфере intelligence. На данный момент бекнулся в комьюнити на другую личность, после ухода перед началом лета. Никем не валиднут. Особого фейма не имею. Развиваю медийку.
+        </div>
+      </div>
+
+      <a class="btn" href="https://ostapovxyz.t.me" target="_blank" rel="noopener noreferrer">Контакт</a>
+    </div>
+  </div>
+</body>
+</html>

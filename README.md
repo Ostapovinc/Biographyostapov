@@ -1,2 +1,0 @@
-# Biographyostapov
-Web human intelligence
